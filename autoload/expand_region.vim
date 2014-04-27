@@ -169,7 +169,13 @@ endfunction
 " filetype. Filetype-specific dictionaries will be loaded if they exist
 " and the global dictionary will be used as a fallback.
 function! s:get_configuration()
+
+    if exists("b:expand_region_text_objects")
+        return b:expand_region_text_objects
+    endif
+
   let configuration = {}
+
   for ft in split(&ft, '\.')
     if exists("g:expand_region_text_objects_".ft)
       call extend(configuration, g:expand_region_text_objects_{ft})
